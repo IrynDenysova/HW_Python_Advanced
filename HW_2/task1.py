@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, ValidationError, Field, field_validator, model_validator
+from pydantic import BaseModel, EmailStr, ValidationError, Field, model_validator
 
 
 class Address(BaseModel):
@@ -9,7 +9,7 @@ class Address(BaseModel):
 
 class User(BaseModel):
     name: str
-    age: int = Field(..., ge=0, lt=120)
+    age: int = Field(..., ge=0, le=120)
     email: EmailStr
     is_employed: bool
     address: Address
