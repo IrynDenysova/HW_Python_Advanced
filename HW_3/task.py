@@ -29,9 +29,10 @@ class Product(Base):
     __tablename__ = 'product'
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
-    price = Column(DECIMAL(10,2))
+    price = Column(DECIMAL(10, 2))
     in_stock = Column(Boolean)
     category_id = Column(Integer, ForeignKey('category.id'))
+
 
 class Category(Base):
     __tablename__ = 'category'
@@ -39,7 +40,8 @@ class Category(Base):
     name = Column(String(100))
     description = Column(String(255))
 
-    product = relationship("Product",backref= "category")
+    product = relationship("Product", backref="category")
+
 
 Base.metadata.create_all(engine)
 
@@ -53,9 +55,3 @@ kettle = Product(name="Чайник", price=2500.00, in_stock=True, category=kit
 # 2. Добавляем в сессию и сохраняем (commit)
 session.add_all([electronics, kitchen, phone, laptop, kettle])
 session.commit()
-
-
-
-
-
-
