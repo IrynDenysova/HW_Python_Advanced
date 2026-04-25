@@ -25,9 +25,10 @@ class Product(Base):
     __tablename__ = 'products'
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
-    price = Column(DECIMAL(10,2))
+    price = Column(DECIMAL(10, 2))
     in_stock = Column(Boolean)
     category_id = Column(Integer, ForeignKey('category.id'))
+
 
 class Category(Base):
     __tablename__ = 'category'
@@ -35,10 +36,10 @@ class Category(Base):
     name = Column(String(100))
     description = Column(String(255))
 
-    products = relationship("Product",backref= "category")
+    products = relationship("Product", backref="category")
+
 
 if __name__ == '__main__':
-
     Base.metadata.create_all(engine)
 
     electronics = Category(name="Электроника", description="Гаджеты и устройства.")
@@ -46,19 +47,13 @@ if __name__ == '__main__':
     clothing = Category(name="Одежда", description="Одежда для мужчин и женщин.")
 
     products = [
-            Product(name="Смартфон", price=299.99, in_stock=True, category=electronics),
-            Product(name="Ноутбук", price=499.99, in_stock=True, category=electronics),
-            Product(name="Научно-фантастический роман", price=15.99, in_stock=True, category=books),
-            Product(name="Джинсы", price=40.50, in_stock=True, category=clothing),
-            Product(name="Футболка", price=20.00, in_stock=True, category=clothing),
-        ]
-
+        Product(name="Смартфон", price=299.99, in_stock=True, category=electronics),
+        Product(name="Ноутбук", price=499.99, in_stock=True, category=electronics),
+        Product(name="Научно-фантастический роман", price=15.99, in_stock=True, category=books),
+        Product(name="Джинсы", price=40.50, in_stock=True, category=clothing),
+        Product(name="Футболка", price=20.00, in_stock=True, category=clothing),
+    ]
 
     session.add_all([electronics, books, clothing])
     session.add_all(products)
     session.commit()
-
-
-
-
-
