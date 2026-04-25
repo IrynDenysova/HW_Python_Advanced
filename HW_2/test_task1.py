@@ -1,5 +1,6 @@
 from task1 import *
 
+
 def test_too_big_age():
     json_input = """{
             "name": "John Doe",
@@ -18,6 +19,7 @@ def test_too_big_age():
     except ValidationError as e:
         assert "Input should be less than or equal to 120" in str(e)
 
+
 def test_too_small_age():
     json_input = """{
             "name": "John Doe",
@@ -35,6 +37,7 @@ def test_too_small_age():
         assert False
     except ValidationError as e:
         assert "Input should be greater than or equal to 0" in str(e)
+
 
 def test_wrong_age():
     json_input = """{

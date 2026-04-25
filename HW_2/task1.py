@@ -16,9 +16,10 @@ class User(BaseModel):
 
     @model_validator(mode='after')
     def validate_age_employed(self):
-        if self.is_employed and ( self.age < 18 or self.age >= 65):
+        if self.is_employed and (self.age < 18 or self.age >= 65):
             raise ValueError('Age must be between 18 and 65')
         return self
+
 
 def validate_user(json_input):
     user = User.model_validate_json(json_input)
