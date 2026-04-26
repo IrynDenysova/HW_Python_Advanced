@@ -2,21 +2,21 @@ from pydantic import BaseModel, EmailStr, ValidationError, Field, model_validato
 
 
 class Address(BaseModel):
-    city: str = Field(..., min_length=2)
-    street: str = Field(..., min_length=3)
-    house_number: int = Field(..., gt=0)
+    city: str = Field(min_length=2)
+    street: str = Field(min_length=3)
+    house_number: int = Field(gt=0)
 
 
 class User(BaseModel):
-    name: str
-    age: int = Field(..., ge=0, le=120)
+    name: str(min_length=2, pattern=r"^[a-zA-Zа-яА-ЯёЁ]+$")
+    age: int = Field(ge=0, le=120)
     email: EmailStr
     is_employed: bool
     address: Address
 
     @model_validator(mode='after')
     def validate_age_employed(self):
-        if self.is_employed and (self.age < 18 or self.age >= 65):
+        if self.is_employed and (self.age < 18 or self.age > 65):
             raise ValueError('Age must be between 18 and 65')
         return self
 
