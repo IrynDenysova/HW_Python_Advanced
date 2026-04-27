@@ -16,7 +16,7 @@
 
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import Column, Integer, String, DECIMAL, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, NUMERIC
 from sqlalchemy.orm import declarative_base, relationship
 
 engine = sqlalchemy.create_engine("sqlite:///test.db")
@@ -29,7 +29,7 @@ class Product(Base):
     __tablename__ = 'product'
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
-    price = Column(DECIMAL(10, 2))
+    price = Column(NUMERIC(10, 2))
     in_stock = Column(Boolean)
     category_id = Column(Integer, ForeignKey('category.id'))
 
@@ -45,13 +45,15 @@ class Category(Base):
 
 Base.metadata.create_all(engine)
 
-electronics = Category(name="Электроника", description="Гаджеты и устройства")
-kitchen = Category(name="Кухня", description="Товары для дома")
+# проверка (для себя)
 
-phone = Product(name="Смартфон", price=59990.00, in_stock=True, category=electronics)
-laptop = Product(name="Ноутбук", price=85000.50, in_stock=False, category=electronics)
-kettle = Product(name="Чайник", price=2500.00, in_stock=True, category=kitchen)
-
-# 2. Добавляем в сессию и сохраняем (commit)
-session.add_all([electronics, kitchen, phone, laptop, kettle])
-session.commit()
+# electronics = Category(name="Электроника", description="Гаджеты и устройства")
+# kitchen = Category(name="Кухня", description="Товары для дома")
+#
+# phone = Product(name="Смартфон", price=59990.00, in_stock=True, category=electronics)
+# laptop = Product(name="Ноутбук", price=85000.50, in_stock=False, category=electronics)
+# kettle = Product(name="Чайник", price=2500.00, in_stock=True, category=kitchen)
+#
+# # 2. Добавляем в сессию и сохраняем (commit)
+# session.add_all([electronics, kitchen, phone, laptop, kettle])
+# session.commit()
